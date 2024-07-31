@@ -19,14 +19,14 @@ app = Flask(__name__)
 # bottom left, top right,
 
 
-@app.route('/rdt/bbox/<float:x1>/<float:y1>', methods=['GET'])
+@app.route('/pdt/bbox/<float:x1>/<float:y1>', methods=['GET'])
 def hello_world(x1,y1):
     a = x1 + y1
     print(x1,y1)
     return 'result: '+ str(a)
 
 
-@app.route('/rdt/roofdetect', methods=['POST'])
+@app.route('/pdt/roofdetect', methods=['POST'])
 def roofdetect():
     bbox = request.get_json()['bbox']
     # bbox = [98.98256370041973, 18.78962855608318, 98.98415592531632, 18.79059525263044]
@@ -96,4 +96,4 @@ def roofdetect():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5200, debug=True)

@@ -64,8 +64,12 @@ map.on('pm:create', function (event) {
     // แสดงพิกัดของมุมบนขวาและมุมล่างซ้าย
     console.log(coordinates[1][0], coordinates[3][1], coordinates[3][0], coordinates[1][1]);
 
-    // ส่งพิกัดไปยัง API โดยใช้ axios
-    axios.post('http://localhost:5100/roofdetect', {
+    // ส่งพิกัดไปยัง API โดยใช้ axios 
+    // กรณีจะรันใน localhost ให้ใช้ hostUrl //
+    // กรณีจะรันใน Server ให้ใช้ server // 
+    const hostUrl = 'http://localhost:5200/pdt/roofdetect';
+    const server = '/pdt/roofdetect';
+    axios.post(server, {
         bbox: [coordinates[1][0], coordinates[3][1], coordinates[3][0], coordinates[1][1]]
     })
         .then(function (response) {

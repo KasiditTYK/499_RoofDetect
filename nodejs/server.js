@@ -1,12 +1,12 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = 3400;
 
 app.use(express.json());
 
 let polygons = [];
 
-app.get('/rdt/:x1/:y1/:x2/:y2', (req, res) => {
+app.get('/rdt/api/getbbox/:x1/:y1/:x2/:y2', (req, res) => {
     const { x1, y1, x2, y2 } = req.params;
     const bbox = [parseFloat(x1), parseFloat(y1), parseFloat(x2), parseFloat(y2)];
     const image = 'satellite.tif';
