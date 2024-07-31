@@ -1,17 +1,17 @@
 version: '3.8'
 
 services:
-  # postgis:
-  #   image: postgis/postgis:latest
-  #   container_name: postgis
-  #   ports:
-  #     - "5437:5432"
-  #   environment:
-  #     POSTGRES_DB: geodb
-  #     POSTGRES_USER: postgres
-  #     POSTGRES_PASSWORD: 1234
-  #   volumes:
-  #     - ./postgis:/docker-entrypoint-initdb.d
+  postgis:
+    image: postgis/postgis:latest
+    container_name: postgis_new
+    ports:
+      - "5437:5432"
+    environment:
+      POSTGRES_DB: geodb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    volumes:
+      - ./postgis:/docker-entrypoint-initdb.d
 
   python:
     image: giswqs/segment-geospatial:latest
