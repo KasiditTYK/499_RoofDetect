@@ -3,7 +3,7 @@ version: '3.8'
 services:
   postgis:
     image: postgis/postgis:latest
-    container_name: postgis_new
+    container_name: rdt_postgis
     ports:
       - "5437:5432"
     environment:
@@ -15,7 +15,7 @@ services:
 
   python:
     image: giswqs/segment-geospatial:latest
-    container_name: segment-geospatial
+    container_name: rdt_python
     working_dir: /app
     depends_on:
       - postgis
@@ -27,7 +27,7 @@ services:
 
   nodejs:
     image: node:latest
-    container_name: nodejs
+    container_name: rdt_nodejs
     working_dir: /app
     depends_on:
       - postgis
