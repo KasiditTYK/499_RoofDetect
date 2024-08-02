@@ -74,20 +74,7 @@ map.on('pm:create', function (event) {
     })
         .then(function (response) {
             let data = JSON.parse(response.data)
-            // let data2 = data.features[0].geometry.coordinates[0]
             console.log(data);
-            // let label = JSON.parse(response.data[0].properties.label)
-            // console.log(label);
-
-
-            // let data = response.data;
-            // L.geoJSON(data, {
-            //     style: function (feature) {
-            //         return { color: "red" };
-            //     }
-            // }).bindPopup(function (layer) {
-            //     return layer.feature.properties.label;
-            // }).addTo(map);
 
 
             L.geoJSON(data, {
@@ -97,7 +84,6 @@ map.on('pm:create', function (event) {
             }).bindPopup(function (layer) {
                 return layer.feature.properties.label;
             }).addTo(map);
-
 
 
         })
