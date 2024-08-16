@@ -1,4 +1,5 @@
 import os
+import shutil
 import torch
 from tms_to_geotiff import tms_to_geotiff
 from ultralytics import YOLO
@@ -91,6 +92,18 @@ def roofdetect():
     gdf_transformed = combined_gdf.to_crs(target_crs)
 
     print(f"Saved combined GeoJSON to {gdf_transformed}")
+
+
+
+    # Check if the folder exists
+    folderName = os.path.join(os.getcwd(), 'runs')
+
+    if os.path.exists(folderName):
+        # Use shutil.rmtree() to remove the directory and its contents
+        shutil.rmtree(folderName)
+        print(f"Folder '{folderName}' has been removed.")
+    else:
+        print(f"Folder '{folderName}' does not exist.")
 
     return jsonify(gdf_transformed.to_json())
 

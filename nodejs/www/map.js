@@ -5,12 +5,52 @@ var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest
 
 var map = L.map('map', {
     center: [18.788346, 98.985291], // ตั้งค่าพิกัดศูนย์กลางของแผนที่
-    zoom: 19, // ตั้งค่าระดับซูมเริ่มต้น
+    zoom: 18, // ตั้งค่าระดับซูมเริ่มต้น
     layers: [Esri_WorldImagery] // เพิ่ม Tile Layer เป็นภาพถ่ายจาก Esri
 });
 
 L.control.scale().addTo(map);
 
+// สร้าง feature group สำหรับจัดการเลเยอร์
+var cm = L.featureGroup().addTo(map);
+
+// กำหนดสไตล์สำหรับเลเยอร์ GeoJSON
+var style = {
+    color: '#000000',    // ขอบสีดำ
+    fillColor: 'transparent', // สีพื้นโปร่งใส
+    opacity: 0.5,       // ความโปร่งใสของสีพื้น
+    weight: 5            // ความหนาของขอบ
+};
+
+// เพิ่มข้อมูล GeoJSON ไปยัง feature group พร้อมสไตล์
+L.geoJSON(polygon, { style: style }).addTo(cm);
+
+// สร้างอ็อบเจ็กต์ overlayMaps สำหรับการควบคุมเลเยอร์
+var overlayMaps = {
+    "ขอบเขตเทศบาลนครเชียงใหม่": cm
+};
+
+// สร้างการควบคุมเลเยอร์และเพิ่มไปยังแผนที่ที่มุมล่างขวา
+L.control.layers(null, overlayMaps, { position: 'bottomright' }).addTo(map);
+
+
+
+
+
+
+map.on('click', (event) => {
+    const latlng = event.latlng;
+    const lat = latlng.lat.toFixed(2);
+    const lng = latlng.lng.toFixed(2);
+    console.log(`Latitude: ${lat}, Longitude: ${lng}`);
+    document.getElementById("mapClick").value = `${lat}, ${lng}`;
+});
+
+
+
+map.on('zoomend', (event) => {
+    document.getElementById("mapZoom").value = map.getZoom()
+})
 
 var drawnItems = new L.FeatureGroup();
 map.addLayer(drawnItems);
@@ -67,8 +107,16 @@ map.on('pm:create', function (event) {
     // ส่งพิกัดไปยัง API โดยใช้ axios 
     // กรณีจะรันใน localhost ให้ใช้ hostUrl //
     // กรณีจะรันใน Server ให้ใช้ server // 
-    const hostUrl = 'http://localhost:5200/pdt/roofdetect';
-    const server = '/pdt/roofdetect';
+    // กรณีเทสผ่านเครื่องเปิด localhost (บรรทัด71) เทสผ่าน server เปิดserver (บรรทัด72)
+
+    const server = 'http://localhost:5200/pdt/roofdetect';
+    // const server = '/pdt/roofdetect';
+
+    function checkProperty() {
+
+    }
+
+
     axios.post(server, {
         bbox: [coordinates[1][0], coordinates[3][1], coordinates[3][0], coordinates[1][1]]
     })
@@ -76,10 +124,23 @@ map.on('pm:create', function (event) {
             let data = JSON.parse(response.data)
             console.log(data);
 
-
+            let mr = 0;
+            let cr = 0;
             L.geoJSON(data, {
                 style: function (feature) {
-                    return { color: "red" };
+                    let color = "red";
+
+                    if (feature.properties.label == "Metal roof") {
+                        color = "yellow";
+                        mr++;
+                    } else if (feature.properties.label == "Concrete roof") {
+                        color = "green";
+                        cr++;
+                    }
+                    console.log("Metal roof: ", mr);
+                    console.log("Concrete roof: ", cr);
+                    console.log(feature.properties.label);
+                    return { color: color };
                 }
             }).bindPopup(function (layer) {
                 return layer.feature.properties.label;
