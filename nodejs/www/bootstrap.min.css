@@ -12,6 +12,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 @import url(https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;500;600;700&display=swap);
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap');
 
 :root,
 [data-bs-theme=light] {
@@ -4294,6 +4295,19 @@ fieldset:disabled .btn {
         transition: none
     }
 }
+
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link.show,
+.nav-item {
+    font-size: 17px;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    font-family: "Noto Sans Thai", sans-serif;
+
+}
+
 
 .nav-link:focus,
 .nav-link:hover {

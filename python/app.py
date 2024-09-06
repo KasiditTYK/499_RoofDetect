@@ -13,6 +13,7 @@ import geopandas as gpd
 import pandas as pd
 import numpy as np
 from flask import Flask, request, jsonify
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -35,7 +36,7 @@ def roofdetect():
     tms_to_geotiff(output=image, bbox=bbox, zoom=20,
                    source='Satellite', overwrite=True)
 
-    model = YOLO("best2.pt")
+    model = YOLO("model_Google.pt")
 
     results = model.predict(image,
                             save=True, imgsz=640, conf=0.5)
@@ -82,11 +83,15 @@ def roofdetect():
 
     combined_gdf = gpd.GeoDataFrame(pd.concat(gdfs, ignore_index=True))
     # print("Current CRS:", combined_gdf.crs)
-    
-    combined_geojson_output_file = "combined_segments.geojson"
-    combined_gdf.to_file(combined_geojson_output_file, driver='GeoJSON')
 
-    gdf = gpd.read_file(combined_geojson_output_file)
+    current_date = datetime.now()
+    int_date = int(current_date.strftime('%Y%m%d%H%M'))
+    
+    combined_geojson_output_file = "combined_segments" + str(int_date) +".geojson"
+    combined_gdf.to_file(combined_geojson_output_file, driver='GeoJSON')
+    combined_gdf.to_file(combined_geojson_output_file, driver='ESRI Shapefile')
+
+    gdf = gpd.read_file(combined_geojson_output_file) 
     combined_gdf.set_crs('EPSG:3857') 
     target_crs = 'EPSG:4326'
     gdf_transformed = combined_gdf.to_crs(target_crs)

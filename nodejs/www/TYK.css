@@ -159,16 +159,18 @@ h1 {
 
 p {
     color: rgb(255, 255, 255);
-    font-size: 14px;
+    font-size: 20px;
     font-weight: 300;
     line-height: 22px;
     padding: 10px;
+    text-align: center;
 }
 
 .row {
     margin-top: 5%;
     display: flex;
     justify-content: space-between;
+    font-family: "Mitr", sans-serif;
 
 
 }
@@ -315,4 +317,15 @@ button {
     background-color: #0078d4;
     /* Bing Maps blue color */
     border-radius: 2px;
+}
+
+.foot {
+    background-color: rgb(229 12 12 / 76%);
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 22px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+    font-family: "Mitr", sans-serif;
 }

@@ -1,13 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Mitr:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pattaya&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
 
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: ;
-
+    font-family: Arial, sans-serif;
+    /* Specify your font family here */
 }
 
 body,
@@ -17,28 +20,201 @@ html {
     height: 100%;
 }
 
-
-
 #map {
     position: absolute;
-    top: 0px;
-    /* ระยะห่างด้านบน 50px */
+    top: 0;
     left: 0;
     width: 100vw;
-    /* ความกว้างเต็มหน้าจอ */
     height: calc(100vh - 0px);
-    /* ความสูงเต็มหน้าจอลบด้วยระยะห่างด้านบน 50px */
     z-index: 0;
-    /* ให้แผนที่อยู่ข้างหลัง */
 }
 
 .info-box {
     position: absolute;
+    top: 13vh;
+    right: 10px;
+    background: #ffffffe0;
+    padding: 10px;
+    padding-bottom: 20px;
+    border: 1px solid #ffffff;
+    z-index: 1000;
+    border-radius: 14px;
+}
+
+
+
+.leaflet-control-layers {
+    border: 2px solid #000;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    padding: 10px;
+}
+
+.leaflet-touch .leaflet-control-layers-toggle {
+    width: 50px;
+    height: 50px;
+}
+
+.leaflet-top {
+    top: 11vh;
+}
+
+/* Navbar styling */
+.navbar-custom {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    /* Ensure navbar is above other content */
+    background-color: rgba(255, 255, 255, 0.5);
+    /* Black with 50% opacity */
+    /* Optional: set a background color for the navbar */
+}
+
+
+.navbar-brand {
+    margin-right: 80rem;
+}
+
+.navbar {
+    /* กำหนดความสูงของ navbar ให้คงที่ */
+    height: 100px;
+    /* เปลี่ยนตามต้องการ */
+    display: flex;
+    align-items: center;
+    /* จัดแนวโลโก้ในแนวกลาง */
+}
+
+.bi-house-fill::before {
+    margin-left: 55vh;
+}
+
+.brand-logo {
+    height: 20vh;
+    /* ทำให้ความสูงของโลโก้เต็มพื้นที่ของ navbar */
+    width: auto;
+    /* ปรับขนาดความกว้างให้คงที่ตามอัตราส่วน */
+    max-width: 200px;
+    /* กำหนดความกว้างสูงสุดตามต้องการ */
+}
+
+.logo-img {
+    margin-left: 4vh;
+
+
+}
+
+.bg-light {
+    --bs-bg-opacity: 1;
+    background: linear-gradient(to bottom, #000000, #0000002b) !important;
+    border: none !important;
+    /* กำจัดเส้นขอบ */
+}
+
+.nav-link {
+    font-size: 40px;
+    color: aliceblue;
+
+}
+
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+#loading-message {
+    color: white;
+    font-size: 75px;
+    /* ขนาดตัวหนังสือ */
+    font-family: "Sriracha", cursive;
+    /* ฟอนต์ Sriracha */
+    font-weight: 400;
+    /* น้ำหนักตัวหนังสือ */
+    animation: pulse 1.5s infinite;
+    /* การเคลื่อนไหว */
+}
+
+/* CSS Animation สำหรับข้อความ */
+@keyframes pulse {
+    0% {
+        opacity: 0.5;
+        transform: scale(0.9);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+
+    100% {
+        opacity: 0.5;
+        transform: scale(0.9);
+    }
+}
+
+
+label[for="mapClick"],
+label[for="mapZoom"],
+label[for="metalRoof"],
+label[for="concreteRoof"],
+label[for="cementRoof"],
+label[for="otherRoof"],
+label[for="totalRoof"] {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 17px;
+    color: #000000;
+    margin-bottom: 5px;
+    display: block;
+    font-weight: 600;
+}
+
+
+#mapClick,
+#mapZoom,
+#metalRoof,
+#concreteRoof,
+#cementRoof,
+#otherRoof,
+#totalroof {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 16px;
+    color: #000000;
+    font-weight: 600;
+    border: 4px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    background-color: #ffffff;
+}
+
+
+
+.icon-toggle {
+    position: absolute;
     top: 10px;
     right: 10px;
+    cursor: pointer;
+    background-color: #f1f1f1;
+    padding: 5px;
+    border-radius: 4px;
+    z-index: 1;
+    /* ให้อยู่เหนือเนื้อหาของ info-box */
+}
 
-    background: white;
-    padding: 10px;
-    border: 1px solid #ccc;
-    z-index: 1000;
+.info-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    padding-top: 36px;
+    padding-bottom: 0px;
+    border-top: 0px solid #ddd;
 }

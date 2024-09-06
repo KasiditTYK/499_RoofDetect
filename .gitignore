@@ -130,3 +130,7 @@ dist
 .pnp.*
 python/best2.pt
 *.tif
+python/model_Bing.pt
+python/model_Google.pt
+python/Model_MIX.pt
+python/best3.pt 
