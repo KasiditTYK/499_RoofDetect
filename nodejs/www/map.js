@@ -2,13 +2,13 @@
 var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
     attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
     minZoom: 16,
-    maxZoom: 19 // กำหนดระดับการซูมสูงสุดสำหรับ Esri
+    maxZoom: 18 // กำหนดระดับการซูมสูงสุดสำหรับ Esri
 });
 
 
 var gsat = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
     minZoom: 16,
-    maxZoom: 20 // กำหนดระดับการซูมสูงสุดสำหรับ Google Satellite
+    maxZoom: 18 // กำหนดระดับการซูมสูงสุดสำหรับ Google Satellite
 });
 
 
@@ -19,6 +19,7 @@ var baseMaps = {
 
 var map = L.map('map', {
     center: [18.788346, 98.985291], // ตั้งค่าพิกัดศูนย์กลางของแผนที่
+    zoomControl: false,
     zoom: 18, // ตั้งค่าระดับซูมเริ่มต้น
     layers: [Esri_WorldImagery], // เพิ่ม Tile Layer เป็นภาพถ่ายจาก Esri
     // กำหนดระดับการซูมสูงสุดสำหรับแผนที่ทั้งหมด
@@ -92,88 +93,6 @@ map.pm.addControls({
 });
 
 
-
-// var polygonCount = 0;
-
-// map.on('pm:create', function (event) {
-//     // รับเลเยอร์ที่ถูกวาด
-//     var layer = event.layer;
-//     drawnItems.addLayer(layer);
-
-//     // แปลงเลเยอร์เป็นวัตถุ GeoJSON
-//     var geoJSON = layer.toGeoJSON();
-//     var coordinates = geoJSON.geometry.coordinates[0];
-
-//     polygonCount++;
-//     var polygonName = "Polygon ลำดับที่: " + polygonCount;
-//     layer.bindTooltip(polygonName).openTooltip();
-
-//     layer.pm.disable();
-
-//     // แสดงพิกัดของมุมบนขวาและมุมล่างซ้าย
-//     console.log(coordinates[1][0], coordinates[3][1], coordinates[3][0], coordinates[1][1]);
-
-//     // แสดงหน้าโหลด
-//     document.getElementById('loading-screen').style.display = 'flex';
-
-//     const server = 'http://localhost:5200/pdt/roofdetect';
-//     // const server = '/pdt/roofdetect';
-
-//     axios.post(server, {
-//         bbox: [coordinates[1][0], coordinates[3][1], coordinates[3][0], coordinates[1][1]]
-//     })
-//         .then(function (response) {
-//             let data = JSON.parse(response.data)
-//             console.log(data);
-
-//             let mr = 0;
-//             let cr = 0;
-//             L.geoJSON(data, {
-//                 style: function (feature) {
-//                     let color = "red";
-
-//                     if (feature.properties.label == "Metal roof") {
-//                         color = "yellow";
-//                         mr++;
-//                     } else if (feature.properties.label == "Concrete roof") {
-//                         color = "green";
-//                         cr++;
-//                     }
-//                     console.log("Metal roof: ", mr);
-//                     console.log("Concrete roof: ", cr);
-//                     console.log(feature.properties.label);
-//                     return { color: color };
-//                 }
-//             }).bindPopup(function (layer) {
-//                 return layer.feature.properties.label;
-//             }).addTo(map);
-
-//             // ซ่อนหน้าโหลด
-//             document.getElementById('loading-screen').style.display = 'none';
-
-//         })
-//         .catch(function (error) {
-//             console.log(error);
-
-//             // ซ่อนหน้าโหลดหากเกิดข้อผิดพลาด
-//             document.getElementById('loading-screen').style.display = 'none';
-//         });
-
-//     // แสดงพิกัดพร้อมกับป้ายกำกับ
-//     coordinates.forEach(function (coord, index) {
-//         var corner = "";
-//         if (index === 1) {
-//             corner = "มุมบนขวา";
-//             console.log(corner + ": [" + coord[1] + ", " + coord[0] + "]");
-//         } else if (index === 3) {
-//             corner = "มุมล่างซ้าย";
-//             console.log(corner + ": [" + coord[1] + ", " + coord[0] + "]");
-//         }
-//     });
-// });
-
-
-
 var polygonCount = 0;
 
 map.on('pm:create', function (event) {
@@ -212,6 +131,14 @@ map.on('pm:create', function (event) {
             let cr = 0;
             let ot = 0;
             let ct = 0;
+
+            map.eachLayer((l) => {
+                console.log(l)
+            })
+
+            data.features.forEach(feature => {
+                feature.properties.name = "roof";
+            });
             L.geoJSON(data, {
                 style: function (feature) {
                     let color = "red";
@@ -270,27 +197,6 @@ map.on('pm:create', function (event) {
 });
 
 
-// // การคำนวณพื้นที่แบบเรียลไทม์เมื่อแก้ไขพอลิกอน
-// map.on('pm:edit', function (event) {
-//     // รับเลเยอร์ที่ถูกแก้ไข
-//     var layer = event.layer;
-
-//     // แปลงเลเยอร์เป็นวัตถุ GeoJSON
-//     var geoJSON = layer.toGeoJSON();
-//     var coordinates = geoJSON.geometry.coordinates[0];
-
-//     // คำนวณพื้นที่ใหม่
-//     var polygon = turf.polygon([coordinates]);
-//     var area = turf.area(polygon); // พื้นที่เป็นตารางเมตร
-
-//     // อัปเดตข้อมูลใน tooltip
-//     var coordString = coordinates.map(coord => `[${coord[0].toFixed(5)}, ${coord[1].toFixed(5)}]`).join(', ');
-//     var tooltipContent = `Polygon ลำดับที่: ${polygonCount}<br>Coordinates: ${coordString}<br>Area: ${area.toFixed(2)} sq meters`;
-//     layer.setTooltipContent(tooltipContent);
-// });
-
-
-
 map.on("pm:drawend", (e) => {
     // Get the layer that was drawn
     const layer = e.shape;
@@ -298,6 +204,8 @@ map.on("pm:drawend", (e) => {
     // Log the GeoJSON object
     console.log(layer);
 });
+
+
 
 document.getElementById('toggleInfoBox').addEventListener('click', function () {
     var infoContent = document.getElementById('infoContent');
@@ -310,3 +218,11 @@ document.getElementById('toggleInfoBox').addEventListener('click', function () {
         infoContent.style.maxHeight = infoContent.scrollHeight + 'px'; // ความสูงที่ใช้จริง
     }
 });
+
+// ตั้งค่าเริ่มต้นให้เปิดแถบข้อมูล
+document.addEventListener('DOMContentLoaded', function () {
+    var infoContent = document.getElementById('infoContent');
+    infoContent.style.maxHeight = infoContent.scrollHeight + 'px';
+});
+
+

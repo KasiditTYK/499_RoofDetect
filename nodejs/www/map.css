@@ -30,18 +30,20 @@ html {
 }
 
 .info-box {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+    text-align: center;
     position: absolute;
-    top: 13vh;
+    top: 3vh;
     right: 10px;
     background: #ffffffe0;
     padding: 10px;
-    padding-bottom: 20px;
+    padding-bottom: 0px;
     border: 1px solid #ffffff;
     z-index: 1000;
     border-radius: 14px;
 }
-
-
 
 .leaflet-control-layers {
     border: 2px solid #000;
@@ -217,4 +219,87 @@ label[for="totalRoof"] {
     padding-top: 36px;
     padding-bottom: 0px;
     border-top: 0px solid #ddd;
+}
+
+#calculateRoof {
+    background-color: #4CAF50;
+    /* สีพื้นหลังเขียว */
+    color: white;
+    /* สีตัวอักษร */
+    padding: 15px 32px;
+    /* ขนาด padding ภายในปุ่ม */
+    text-align: center;
+    /* จัดแนวตัวอักษรให้อยู่ตรงกลาง */
+    text-decoration: none;
+    /* ลบขีดเส้นใต้ */
+    display: inline-block;
+    /* จัดรูปแบบปุ่มเป็นแบบบล็อค */
+    font-size: 16px;
+    /* ขนาดตัวอักษร */
+    margin: 17px 2px;
+
+    margin-left: 10px;
+    /* ช่องว่างรอบปุ่ม */
+    border: none;
+    /* ลบเส้นขอบ */
+    border-radius: 12px;
+    /* มุมปุ่มมน */
+    cursor: pointer;
+    /* เปลี่ยนเคอร์เซอร์เมื่อชี้ที่ปุ่ม */
+    transition: background-color 0.3s ease;
+    /* เอฟเฟกต์เปลี่ยนสีพื้นหลังแบบนุ่มนวล */
+}
+
+#calculateRoof:hover {
+    background-color: #45a049;
+    /* เปลี่ยนสีเมื่อ hover */
+}
+
+.leaflet-pm-toolbar .button-container:last-child a.leaflet-buttons-control-button {
+    border-bottom: none;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 213px;
+    height: 40px;
+    /* text-align: center; */
+}
+
+.leaflet-pm-toolbar .leaflet-pm-icon-rectangle {
+    background-image: url(<svg width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1 3v18h22V3zm21 17H2V4h20z"/><path opacity=".25" d="M2 4h20v16H2z"/><path fill="none" d="M0 0h24v24H0z"/></svg>);
+    margin-left: 145px;
+}
+
+.leaflet-pm-toolbar .leaflet-pm-icon-rectangle::before {
+    content: 'คลิ๊กที่นี่เพื่อวาด';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    font-size: 14px;
+    font-family: 'Noto Sans Thai', sans-serif;
+    color: #333;
+    font-weight: 500;
+}
+
+.leaflet-pm-toolbar .button-container:last-child a.leaflet-buttons-control-button {
+    border-bottom: none;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 213px;
+    height: 40px;
+    text-align: center;
+    border-radius: 13px;
+}
+
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+    border: 0px solid rgba(0, 0, 0, 0.2);
+    background-clip: padding-box;
 }

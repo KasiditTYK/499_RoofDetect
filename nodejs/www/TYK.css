@@ -3,32 +3,356 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
 
+@media (min-width: 1024px),
+(max-width: 1366px) {
+    .nav-link {
+        height: 9vh;
+        width: 144px;
+        top: 0;
+        right: 0;
+        text-align: left;
+        z-index: 2;
+    }
+
+    nav img {
+        margin-top: 35px;
+        width: 150px;
+    }
+
+    .nav-link ul li a {
+        color: aliceblue;
+        text-decoration: none;
+        font-size: 30px;
+        font-family: "Mitr", sans-serif;
+        font-weight: 500;
+    }
+
+    .nav-link ul li {
+        margin-top: 30px;
+        margin-left: 20px;
+    }
+
+    .text-box h1 {
+        font-size: 80px;
+        font-family: "Sriracha", cursive;
+        font-weight: 400;
+    }
+
+    .text-box p {
+        margin: 30px 0 40px;
+        font-size: 28px;
+        color: #fff;
+        font-family: "Noto Sans Thai", sans-serif;
+        font-weight: 500;
+        line-height: 1.7;
+    }
+
+    .custom-btn {
+        width: 28vh;
+        height: 57px;
+        color: #fff;
+        border-radius: 5px;
+        padding: 30px 25px;
+        font-size: 27px;
+        font-family: "Mitr", sans-serif;
+        font-weight: 500;
+        background: transparent;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        position: relative;
+        display: inline-block;
+        box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5), 7px 7px 20px 0px rgba(0, 0, 0, .1), 4px 4px 5px 0px rgba(0, 0, 0, .1);
+        outline: none;
+    }
+
+    .custom-btn.btn-11 {
+        border: none;
+        background: rgb(251, 33, 117);
+        background: linear-gradient(0deg, rgb(251, 33, 33) 0%, rgb(255, 0, 0) 100%);
+        color: #fff;
+        overflow: hidden;
+        width: 25vh;
+        height: 11vh;
+        border-radius: 11px;
+        font-family: "Mitr", sans-serif;
+        font-weight: 500;
+    }
+
+    .course h1 {
+        font-family: "Mitr", sans-serif;
+        font-weight: 500;
+        font-size: 29px;
+    }
+
+    .row {
+        margin-top: 5%;
+        display: flex;
+        justify-content: space-between;
+        font-family: "Mitr", sans-serif;
+        font-size: 23px;
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+
+    p {
+        color: rgb(255, 255, 255);
+        font-size: 23px;
+        font-weight: 300;
+        line-height: 22px;
+        padding: 10px;
+        text-align: center;
+        line-height: 1.5;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .nav-link {
+        height: 9vh;
+        width: 144px;
+        top: 0;
+        right: 0;
+        text-align: left;
+        z-index: 2;
+    }
+
+    nav img {
+        margin-top: 35px;
+        width: 150px;
+    }
+
+    .nav-link ul li a {
+        color: aliceblue;
+        text-decoration: none;
+        font-size: 30px;
+        font-family: "Mitr", sans-serif;
+        font-weight: 500;
+    }
+
+    .nav-link ul li {
+        margin-top: 30px;
+        margin-left: 20px;
+    }
+
+    .text-box h1 {
+        font-size: 50px;
+        font-family: "Sriracha", cursive;
+        font-weight: 400;
+    }
+
+    .text-box p {
+        margin: 10px 0 40px;
+        font-size: 25px;
+        color: #fff;
+        font-family: "Noto Sans Thai", sans-serif;
+        font-weight: 500;
+        line-height: 1.6;
+    }
+
+    .custom-btn {
+        width: 28vh;
+        height: 57px;
+        color: #fff;
+        border-radius: 5px;
+        padding: 10px 25px;
+        font-size: 27px;
+        font-family: "Mitr", sans-serif;
+        font-weight: 500;
+        background: transparent;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        position: relative;
+        display: inline-block;
+        box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5), 7px 7px 20px 0px rgba(0, 0, 0, .1), 4px 4px 5px 0px rgba(0, 0, 0, .1);
+        outline: none;
+    }
+
+    .custom-btn.btn-11 {
+        border: none;
+        background: rgb(251, 33, 117);
+        background: linear-gradient(0deg, rgb(251, 33, 33) 0%, rgb(255, 0, 0) 100%);
+        color: #fff;
+        overflow: hidden;
+        width: 16vh;
+        height: 4vh;
+        border-radius: 11px;
+        font-family: "Mitr", sans-serif;
+        font-weight: 500;
+    }
+
+    .course h1 {
+        font-family: "Mitr", sans-serif;
+        font-weight: 500;
+        font-size: 29px;
+    }
+
+    .row {
+        margin-top: 5%;
+        /* display: flex; */
+        justify-content: space-between;
+        font-family: "Mitr", sans-serif;
+        font-size: 23px;
+    }
+
+    p {
+        color: rgb(255, 255, 255);
+        font-size: 23px;
+        font-weight: 300;
+        line-height: 22px;
+        padding: 10px;
+        text-align: center;
+        line-height: 1.5;
+    }
+}
+
+@media (max-width: 430px) {
+    .nav-link {
+        height: 9vh;
+        width: 144px;
+        top: 0;
+        right: 0;
+        text-align: left;
+        z-index: 2;
+    }
+
+    nav img {
+        margin-top: 35px;
+        width: 100px;
+    }
+
+    .nav-link ul li a {
+        color: aliceblue;
+        text-decoration: none;
+        font-size: 20px;
+        font-family: "Mitr", sans-serif;
+        font-weight: 500;
+    }
+
+    .nav-link ul li {
+        margin-top: 27px;
+    }
+
+    .text-box h1 {
+        font-size: 27px;
+        font-family: "Sriracha", cursive;
+        font-weight: 400;
+    }
+
+    .text-box p {
+        margin: 10px 0 40px;
+        font-size: 14px;
+        color: #fff;
+        font-family: "Noto Sans Thai", sans-serif;
+        font-weight: 500;
+    }
+
+    .custom-btn {
+        width: 28vh;
+        height: 57px;
+        color: #fff;
+        border-radius: 5px;
+        padding: 10px 25px;
+        font-size: 18px;
+        font-family: "Mitr", sans-serif;
+        font-weight: 500;
+        background: transparent;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        position: relative;
+        display: inline-block;
+        box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5),
+            7px 7px 20px 0px rgba(0, 0, 0, .1),
+            4px 4px 5px 0px rgba(0, 0, 0, .1);
+        outline: none;
+    }
+
+    .custom-btn.btn-11 {
+        border: none;
+        background: rgb(251, 33, 117);
+        background: linear-gradient(0deg, rgb(251, 33, 33) 0%, rgb(255, 0, 0) 100%);
+        color: #fff;
+        overflow: hidden;
+        width: 13vh;
+        height: 3vh;
+        border-radius: 11px;
+        font-family: "Mitr", sans-serif;
+        font-weight: 500;
+    }
+
+    .course h1 {
+        font-family: "Mitr", sans-serif;
+        font-weight: 500;
+        font-size: 29px;
+    }
+
+    .row {
+        margin-top: 5%;
+        /* display: flex; */
+        justify-content: space-between;
+        font-family: "Mitr", sans-serif;
+    }
+
+    p {
+        color: rgb(255, 255, 255);
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 22px;
+        padding: 10px;
+        text-align: center;
+    }
+
+}
+
 * {
     margin: 0;
     padding: 0;
 
 }
 
+.body {
+    background: rgb(29, 34, 41);
+}
+
+
 .header {
     min-height: 100vh;
     width: 100%;
-    background-image: linear-gradient(rgba(0, 0, 0, 100%), rgba(255, 255, 255, 0.5)), url("image/Sat.png");
-
+    background-image: linear-gradient(rgba(0, 0, 0, 100%), rgba(255, 255, 255, 0.5)), url("image/CnxSat.jpg");
     background-position: center;
     background-size: cover;
     position: relative;
 }
 
-nav {
+.Footer {
+    min-height: 100vh;
+    width: 100%;
+    background-image: linear-gradient(rgba(0, 0, 0, 100%), rgb(255 255 255 / 63%)), url("image/modelweb.jpg");
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
+
+.nav1 {
     display: flex;
     padding: 2% 6%;
     justify-content: space-between;
     align-items: center;
 }
 
-nav img {
-    width: 150px;
+.nav2 {
+    display: flex;
+    padding: 2% 6%;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0px;
 }
+
+/* nav img {
+    width: 150px;
+} */
 
 .nav-link {
     flex: 1;
@@ -43,14 +367,14 @@ nav img {
 
 }
 
-.nav-link ul li a {
+/* .nav-link ul li a {
     color: aliceblue;
     text-decoration: none;
     font-size: 25px;
     font-family: "Mitr", sans-serif;
     font-weight: 500;
 
-}
+} */
 
 .nav-link ul li ::after {
     content: '';
@@ -78,64 +402,20 @@ nav img {
     font-size: 40px;
 }
 
-/* .try-btn {
-    display: inline-block;
-    text-decoration: none;
-    color: #ff0000;
-    border: 1px solid #fff;
-    border-radius: 20px;
-    padding: 12px 34px;
-    font-size: 25px;
-    background: #ffffff;
-    position: relative;
-    cursor: pointer;
-    font-family: "Mitr", sans-serif;
-    font-weight: 500;
-
-}
-
-.try-btn:hover {
-
-    background: rgb(254, 157, 157);
-    transition: 1s;
-    box-shadow: 0 0 20px 0px rgba(0, 0, 0, 75%);
-
-} */
-
-.text-box h1 {
+/* .text-box h1 {
     font-size: 75px;
     font-family: "Sriracha", cursive;
     font-weight: 400;
-}
+} */
 
-.text-box p {
+/* .text-box p {
     margin: 10px 0 40px;
     font-size: 24px;
     color: #fff;
     font-family: "Noto Sans Thai", sans-serif;
     font-weight: 500;
-}
+} */
 
-@media (max-width: 700px) {
-    .text-box h1 {
-        font-size: 36px
-    }
-
-    .nav-link ul li {
-        display: block;
-    }
-
-    .nav-link {
-        position: absolute;
-        background: #f44336;
-        height: 100vh;
-        width: 200px;
-        top: 0;
-        right: 0;
-        text-align: left;
-        z-index: 2;
-    }
-}
 
 /*------ course --------*/
 
@@ -143,8 +423,11 @@ nav img {
     width: 80%;
     margin: auto;
     text-align: center;
-    padding-top: 100px;
-
+    padding-top: 120px;
+    padding-bottom: 80px;
+    background: rgb(29, 34, 41);
+    width: 100%;
+    height: 110%;
 }
 
 h1 {
@@ -155,25 +438,26 @@ h1 {
 .course h1 {
     font-family: "Mitr", sans-serif;
     font-weight: 500;
+    color: lightyellow;
 }
 
-p {
+/* p {
     color: rgb(255, 255, 255);
     font-size: 20px;
     font-weight: 300;
     line-height: 22px;
     padding: 10px;
     text-align: center;
-}
+} */
 
-.row {
+/* .row {
     margin-top: 5%;
     display: flex;
     justify-content: space-between;
     font-family: "Mitr", sans-serif;
 
 
-}
+} */
 
 .course-col {
     flex-basis: 31%;
@@ -218,7 +502,7 @@ button {
     margin: 20px;
 }
 
-.custom-btn {
+/* .custom-btn {
     width: 28vh;
     height: 57px;
     color: #fff;
@@ -250,7 +534,7 @@ button {
     border-radius: 21px;
     font-family: "Mitr", sans-serif;
     font-weight: 500;
-}
+} */
 
 
 

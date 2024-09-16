@@ -35,4 +35,28 @@ services:
       - "3400:3400"
     volumes:
       - ./nodejs:/app
+      - ./python/data:/app/data
     command: /bin/bash -c "npm install && npm i -g nodemon && nodemon app.js"
+
+  # geoserver:
+  #   image: docker.osgeo.org/geoserver:2.26.x
+  #   container_name: geoserver
+  #   environment:
+  #     - GEOSERVER_ADMIN_USER=admin
+  #     - GEOSERVER_ADMIN_PASSWORD=geoserver
+  #   ports:
+  #     - "8080:8080"
+  #   volumes:
+  #     - ./geoserver/data_dir:/opt/geoserver_data
+  #   restart: unless-stopped
+
+  geoserver:
+    image: tomcat:9.0
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./geoserver:/usr/local/tomcat/webapps/geoserver
+      # - tomcat-data:/usr/local/tomcat/webapps
+    environment:
+      - JAVA_OPTS=-Xmx512M
+      - GEOSERVER_HOME=/usr/local/tomcat/webapps/geoserver

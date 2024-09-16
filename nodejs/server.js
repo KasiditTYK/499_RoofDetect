@@ -26,8 +26,10 @@ function tmsToGeotiff({ output, bbox, zoom, source, overwrite }) {
     console.log(`Processing ${output} with bbox ${bbox}, zoom ${zoom}, source ${source}, overwrite ${overwrite}`);
     // ใส่ตรรกะการประมวลผลจริงที่นี่
 }
+
 // ใช้ static middleware สำหรับการเสิร์ฟไฟล์ในโฟลเดอร์ 'www'
 app.use('/rdt', express.static('www'));
+app.use('/rdt/data', express.static('data'));
 
 app.listen(port, () => {
     console.log(` http://localhost:${port}`);
