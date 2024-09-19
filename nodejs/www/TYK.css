@@ -72,7 +72,7 @@
         background: linear-gradient(0deg, rgb(251, 33, 33) 0%, rgb(255, 0, 0) 100%);
         color: #fff;
         overflow: hidden;
-        width: 25vh;
+        width: 27vh;
         height: 11vh;
         border-radius: 11px;
         font-family: "Mitr", sans-serif;
@@ -156,7 +156,7 @@
         color: #fff;
         border-radius: 5px;
         padding: 10px 25px;
-        font-size: 27px;
+        font-size: 19px;
         font-family: "Mitr", sans-serif;
         font-weight: 500;
         background: transparent;
@@ -175,8 +175,8 @@
         background: linear-gradient(0deg, rgb(251, 33, 33) 0%, rgb(255, 0, 0) 100%);
         color: #fff;
         overflow: hidden;
-        width: 16vh;
-        height: 4vh;
+        width: 15vh;
+        height: 5vh;
         border-radius: 11px;
         font-family: "Mitr", sans-serif;
         font-weight: 500;
@@ -225,7 +225,7 @@
     .nav-link ul li a {
         color: aliceblue;
         text-decoration: none;
-        font-size: 20px;
+        font-size: 13px;
         font-family: "Mitr", sans-serif;
         font-weight: 500;
     }
@@ -275,8 +275,8 @@
         background: linear-gradient(0deg, rgb(251, 33, 33) 0%, rgb(255, 0, 0) 100%);
         color: #fff;
         overflow: hidden;
-        width: 13vh;
-        height: 3vh;
+        width: 26vh;
+        height: 7vh;
         border-radius: 11px;
         font-family: "Mitr", sans-serif;
         font-weight: 500;
@@ -285,23 +285,42 @@
     .course h1 {
         font-family: "Mitr", sans-serif;
         font-weight: 500;
-        font-size: 29px;
+        font-size: 16px;
     }
 
     .row {
-        margin-top: 5%;
-        /* display: flex; */
+        margin-top: 6%;
+        display: flex;
         justify-content: space-between;
         font-family: "Mitr", sans-serif;
+        flex-wrap: nowrap;
+        align-content: flex-end;
+        flex-direction: column;
     }
 
     p {
         color: rgb(255, 255, 255);
-        font-size: 16px;
+        font-size: 15px;
         font-weight: 300;
         line-height: 22px;
         padding: 10px;
         text-align: center;
+    }
+
+    .fw-normal {
+        font-weight: 400 !important;
+        font-size: 18px;
+    }
+
+    .card-title {
+        margin-bottom: var(--bs-card-title-spacer-y);
+        color: var(--bs-card-title-color);
+        font-size: 25px;
+    }
+
+    .mb-4 {
+        margin-bottom: 1.5rem !important;
+        font-size: 15px;
     }
 
 }

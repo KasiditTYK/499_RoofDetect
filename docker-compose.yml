@@ -51,12 +51,12 @@ services:
   #   restart: unless-stopped
 
   geoserver:
-    image: tomcat:9.0
+    image: tomcat:8-jre11
     ports:
       - "8080:8080"
     volumes:
-      - ./geoserver:/usr/local/tomcat/webapps/geoserver
+      - ./geoserver:/usr/local/tomcat/webapps/
       # - tomcat-data:/usr/local/tomcat/webapps
     environment:
-      - JAVA_OPTS=-Xmx512M
+      - JAVA_OPTS=-Xmx1024M
       - GEOSERVER_HOME=/usr/local/tomcat/webapps/geoserver

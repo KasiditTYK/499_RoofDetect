@@ -11,6 +11,23 @@ var gsat = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
     maxZoom: 18 // กำหนดระดับการซูมสูงสุดสำหรับ Google Satellite
 });
 
+var lst = L.tileLayer.wms('http://localhost:8080/geoserver/lst/wms?', {
+    layers: 'cmu:lst_area_winter',
+    format: 'image/png',
+    transparent: true,
+    minZoom: 14,
+    maxZoom: 18,
+    attribution: "Weather data © 2012 IEM Nexrad"
+})
+
+var lst = L.tileLayer.wms('http://localhost:8080/geoserver/lst/wms?', {
+    layers: 'lst:lst_area_summer',
+    format: 'image/png',
+    transparent: true,
+    minZoom: 14,
+    maxZoom: 18,
+    attribution: "Weather data © 2012 IEM Nexrad"
+})
 
 var baseMaps = {
     "Esri World Imagery": Esri_WorldImagery,
@@ -52,11 +69,13 @@ L.geoJSON(polygon, { style: style }).addTo(cm);
 
 // สร้างอ็อบเจ็กต์ overlayMaps สำหรับการควบคุมเลเยอร์
 var overlayMaps = {
-    "ขอบเขตเทศบาลนครเชียงใหม่": cm
+    "ขอบเขตเทศบาลนครเชียงใหม่": cm,
+    "LST_SUMMER": lst,
+    "LST_Winter": lst
 };
 
 // สร้างการควบคุมเลเยอร์และเพิ่มไปยังแผนที่ที่มุมล่างขวา
-L.control.layers(baseMaps, overlayMaps, { position: 'bottomright' }).addTo(map);
+L.control.layers(baseMaps, overlayMaps, { position: 'bottomleft' }).addTo(map);
 
 
 
@@ -95,10 +114,12 @@ map.pm.addControls({
 
 var polygonCount = 0;
 
+var cnt = 0;
+var dataArr = [];
 map.on('pm:create', function (event) {
     var layer = event.layer;
+    layer.fid = cnt;
     drawnItems.addLayer(layer);
-    console.log(layer)
 
     var geoJSON = layer.toGeoJSON();
     var coordinates = geoJSON.geometry.coordinates[0];
@@ -112,11 +133,29 @@ map.on('pm:create', function (event) {
     var tooltipContent = `${polygonName}<br>Area: ${area.toFixed(2)} sq meters`;
     layer.bindTooltip(tooltipContent).openTooltip();
 
+    layer.on("click", (e) => {
+        console.log(e.target.fid);
+        console.log(dataArr);
+
+
+        let dataSelect = dataArr.filter(item => item.fid == e.target.fid)
+        console.log(dataSelect);
+
+        document.getElementById('metalRoof').value = dataSelect[0].mr;
+        document.getElementById('concreteRoof').value = dataSelect[0].cr;
+        document.getElementById('cementRoof').value = dataSelect[0].ct;
+        document.getElementById('otherRoof').value = dataSelect[0].ot;
+        document.getElementById('loading-screen').style.display = 'none';
+        document.getElementById('totalroof').value = dataSelect[0].total;
+    })
+
+
     layer.pm.disable();
 
     console.log(coordinates[1][0], coordinates[3][1], coordinates[3][0], coordinates[1][1]);
 
     document.getElementById('loading-screen').style.display = 'flex';
+
 
     const server = 'http://localhost:5200/pdt/roofdetect';
 
@@ -170,6 +209,16 @@ map.on('pm:create', function (event) {
                 return layer.feature.properties.label;
             }).addTo(map);
 
+
+            dataArr.push({
+                fid: cnt,
+                mr: mr,
+                cr: cr,
+                ct: ct,
+                ot: ot,
+                total: mr + cr + ct + ot
+            })
+
             // Update the input fields with the counts
             document.getElementById('metalRoof').value = mr;
             document.getElementById('concreteRoof').value = cr;
@@ -177,12 +226,16 @@ map.on('pm:create', function (event) {
             document.getElementById('otherRoof').value = ot;
             document.getElementById('loading-screen').style.display = 'none';
             document.getElementById('totalroof').value = mr + cr + ct + ot;
+            cnt++
         })
         .catch(function (error) {
             console.log(error);
 
             document.getElementById('loading-screen').style.display = 'none';
         });
+
+
+
 
     coordinates.forEach(function (coord, index) {
         var corner = "";
@@ -204,7 +257,6 @@ map.on("pm:drawend", (e) => {
     // Log the GeoJSON object
     console.log(layer);
 });
-
 
 
 document.getElementById('toggleInfoBox').addEventListener('click', function () {
