@@ -11,7 +11,7 @@ var gsat = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
     maxZoom: 18 // กำหนดระดับการซูมสูงสุดสำหรับ Google Satellite
 });
 
-var lst = L.tileLayer.wms('http://localhost:8080/geoserver/lst/wms?', {
+var lst = L.tileLayer.wms('http://geodev.fun:8080/geoserver/lst/wms?', {
     layers: 'cmu:lst_area_winter',
     format: 'image/png',
     transparent: true,
@@ -20,7 +20,7 @@ var lst = L.tileLayer.wms('http://localhost:8080/geoserver/lst/wms?', {
     attribution: "Weather data © 2012 IEM Nexrad"
 })
 
-var lst = L.tileLayer.wms('http://localhost:8080/geoserver/lst/wms?', {
+var lst = L.tileLayer.wms('http://geodev.fun:8080/geoserver/lst/wms?', {
     layers: 'lst:lst_area_summer',
     format: 'image/png',
     transparent: true,
