@@ -157,7 +157,7 @@ map.on('pm:create', function (event) {
     document.getElementById('loading-screen').style.display = 'flex';
 
 
-    const server = 'http://localhost:5200/pdt/roofdetect';
+    const server = 'https://geodev.fun/rdt/roofdetect';
 
     axios.post(server, {
         bbox: [coordinates[1][0], coordinates[3][1], coordinates[3][0], coordinates[1][1]]
