@@ -1,24 +1,24 @@
 version: '3.8'
 
 services:
-  postgis:
-    image: postgis/postgis:latest
-    container_name: rdt_postgis
-    ports:
-      - "5437:5432"
-    environment:
-      POSTGRES_DB: geodb
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 1234
-    volumes:
-      - ./postgis:/docker-entrypoint-initdb.d
+  # postgis:
+  #   image: postgis/postgis:latest
+  #   container_name: rdt_postgis
+  #   ports:
+  #     - "5437:5432"
+  #   environment:
+  #     # POSTGRES_DB: geodb
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: 1234
+  #   volumes:
+  #     - ./postgis:/docker-entrypoint-initdb.d
 
   python:
     image: giswqs/segment-geospatial:latest
     container_name: rdt_python
     working_dir: /app
-    depends_on:
-      - postgis
+    # depends_on:
+    #   - postgis
     ports:
       - "5200:5200"
     volumes:
@@ -29,8 +29,8 @@ services:
     image: node:latest
     container_name: rdt_nodejs
     working_dir: /app
-    depends_on:
-      - postgis
+    # depends_on:
+    #   - postgis
     ports:
       - "3400:3400"
     volumes:

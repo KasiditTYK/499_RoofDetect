@@ -56,12 +56,12 @@ var style = {
     weight: 5            // ความหนาของขอบ
 };
 
-fetch('nodejs\www\Random_cnx.geojson') // เปลี่ยน path/to/your-file.geojson เป็นที่ตั้งของไฟล์ GeoJSON ของคุณ
-    .then(response => response.json())
-    .then(data => {
-        L.geoJSON(data).addTo(map);
-    })
-    .catch(error => console.error('Error loading GeoJSON:', error));
+// fetch('nodejs\www\Random_cnx.geojson') // เปลี่ยน path/to/your-file.geojson เป็นที่ตั้งของไฟล์ GeoJSON ของคุณ
+//     .then(response => response.json())
+//     .then(data => {
+//         L.geoJSON(data).addTo(map);
+//     })
+//     .catch(error => console.error('Error loading GeoJSON:', error));
 
 
 // เพิ่มข้อมูล GeoJSON ไปยัง feature group พร้อมสไตล์
