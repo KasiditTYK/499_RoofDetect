@@ -111,6 +111,12 @@ map.pm.addControls({
 
 });
 
+map.pm.setGlobalOptions({
+    allowSelfIntersection: false, // ไม่อนุญาตให้เส้นทับกันเอง
+    snapDistance: 30, // ระยะการ snap
+});
+
+
 
 var polygonCount = 0;
 
@@ -118,11 +124,29 @@ var cnt = 0;
 var dataArr = [];
 map.on('pm:create', function (event) {
     var layer = event.layer;
-    layer.fid = cnt;
-    drawnItems.addLayer(layer);
-
     var geoJSON = layer.toGeoJSON();
     var coordinates = geoJSON.geometry.coordinates[0];
+
+    // คำนวณความกว้างและความสูงของ Rectangle ที่วาด
+    var bounds = layer.getBounds();
+    var width = bounds.getEast() - bounds.getWest();
+    var height = bounds.getNorth() - bounds.getSouth();
+
+    // แปลงความกว้างและความสูงจากพิกัดลอจิสติกส์เป็นเมตร
+    var meterPerDegree = 111320; // ค่าประมาณเมตรต่อองศา
+    var widthMeters = width * meterPerDegree * Math.cos(bounds.getSouth() * Math.PI / 180);
+    var heightMeters = height * meterPerDegree;
+
+    // ตรวจสอบว่าขนาดเกินที่กำหนดหรือไม่
+    if (widthMeters > 305.7 || heightMeters > 305.7) {
+        alert('ขนาดพื้นที่ในการวาดใหญ่เกินไป');
+        map.removeLayer(layer); // ลบสี่เหลี่ยมผืนผ้าที่วาดเกินขนาด
+        return; // ไม่ดำเนินการต่อ
+    }
+
+
+    layer.fid = cnt;
+    drawnItems.addLayer(layer);
 
     var polygon = turf.polygon([coordinates]);
     var area = turf.area(polygon);
@@ -137,8 +161,7 @@ map.on('pm:create', function (event) {
         console.log(e.target.fid);
         console.log(dataArr);
 
-
-        let dataSelect = dataArr.filter(item => item.fid == e.target.fid)
+        let dataSelect = dataArr.filter(item => item.fid == e.target.fid);
         console.log(dataSelect);
 
         document.getElementById('metalRoof').value = dataSelect[0].mr;
@@ -147,8 +170,7 @@ map.on('pm:create', function (event) {
         document.getElementById('otherRoof').value = dataSelect[0].ot;
         document.getElementById('loading-screen').style.display = 'none';
         document.getElementById('totalroof').value = dataSelect[0].total;
-    })
-
+    });
 
     layer.pm.disable();
 
@@ -156,8 +178,7 @@ map.on('pm:create', function (event) {
 
     document.getElementById('loading-screen').style.display = 'flex';
 
-
-    const server = 'https://geodev.fun/pdt/roofdetect';
+    const server = 'http://localhost:5200/pdt/roofdetect';
 
     axios.post(server, {
         bbox: [coordinates[1][0], coordinates[3][1], coordinates[3][0], coordinates[1][1]]
@@ -171,19 +192,12 @@ map.on('pm:create', function (event) {
             let ot = 0;
             let ct = 0;
 
-            map.eachLayer((l) => {
-                console.log(l)
-            })
-
             data.features.forEach(feature => {
                 feature.properties.name = "roof";
             });
             L.geoJSON(data, {
                 style: function (feature) {
                     let color = "red";
-
-
-                    console.log(feature.properties.label);
 
                     if (feature.properties.label == "Metal roof") {
                         color = "yellow";
@@ -198,17 +212,11 @@ map.on('pm:create', function (event) {
                         color = "blue";
                         ot++;
                     }
-                    console.log("Metal roof: ", mr);
-                    console.log("Concrete roof: ", cr);
-                    console.log("Cement roof: ", ct);
-                    console.log("Other roof: ", ot);
-                    console.log(feature.properties.label);
                     return { color: color };
                 }
             }).bindPopup(function (layer) {
                 return layer.feature.properties.label;
             }).addTo(map);
-
 
             dataArr.push({
                 fid: cnt,
@@ -217,7 +225,7 @@ map.on('pm:create', function (event) {
                 ct: ct,
                 ot: ot,
                 total: mr + cr + ct + ot
-            })
+            });
 
             // Update the input fields with the counts
             document.getElementById('metalRoof').value = mr;
@@ -226,16 +234,12 @@ map.on('pm:create', function (event) {
             document.getElementById('otherRoof').value = ot;
             document.getElementById('loading-screen').style.display = 'none';
             document.getElementById('totalroof').value = mr + cr + ct + ot;
-            cnt++
+            cnt++;
         })
         .catch(function (error) {
             console.log(error);
-
             document.getElementById('loading-screen').style.display = 'none';
         });
-
-
-
 
     coordinates.forEach(function (coord, index) {
         var corner = "";
@@ -248,6 +252,8 @@ map.on('pm:create', function (event) {
         }
     });
 });
+
+
 
 
 map.on("pm:drawend", (e) => {
