@@ -11,7 +11,7 @@ var gsat = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
     maxZoom: 18 // กำหนดระดับการซูมสูงสุดสำหรับ Google Satellite
 });
 
-var lst = L.tileLayer.wms('http://localhost:8081/geoserver/lst/wms?', {
+var lst = L.tileLayer.wms('http://geoserver:8080/geoserver/lst/wms?', {
     layers: 'cmu:lst_area_winter',
     format: 'image/png',
     transparent: true,
@@ -20,7 +20,7 @@ var lst = L.tileLayer.wms('http://localhost:8081/geoserver/lst/wms?', {
     attribution: "Weather data © 2012 IEM Nexrad"
 })
 
-var lst = L.tileLayer.wms('http://localhost:8081/geoserver/lst/wms?', {
+var lst = L.tileLayer.wms('http://geoserver:8080/geoserver/lst/wms?', {
     layers: 'lst:lst_area_summer',
     format: 'image/png',
     transparent: true,
@@ -178,7 +178,7 @@ map.on('pm:create', function (event) {
 
     document.getElementById('loading-screen').style.display = 'flex';
 
-    const server = 'http://localhost:5200/pdt/roofdetect';
+    const server = 'https://geoserver/pdt/roofdetect';
 
     axios.post(server, {
         bbox: [coordinates[1][0], coordinates[3][1], coordinates[3][0], coordinates[1][1]]
